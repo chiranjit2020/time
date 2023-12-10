@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LCA Time Table</title>
+	<style>
+		@import url("https://fonts.googleapis.com/css2?family=Dhurjati&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: "Century Gothic", "Dhurjati", sans-serif;
+  font-size: 16px;
+  color: #000;
+  line-height: 1.3;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  height: 400vh;
+}
+header {
+  text-align: center;
+  padding-inline: ;
+  padding-block: 0;
+}
+time {
+  display: block;
+  background-color: #142850;
+  font-size: 14px;
+  color: #00a8cc;
+  font-weight: 400;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+img {
+  display: block;
+  width: 220px;
+  margin-block: 20px;
+  margin-inline: auto;
+}
+.cards {
+  width: 30vw;
+  margin-inline: auto;
+}
+
+.card {
+  position: sticky;
+  top: 20px;
+  background-color: #6c4ab6;
+  height: 350px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  padding: 10px;
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+
+  transition: 1s;
+}
+
+.card::after {
+  content: attr(data-day);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 12vw;
+  color: #8d72e1;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  z-index: -1;
+  filter: blur(6px);
+}
+
+.card > .th {
+  position: relative;
+  align-self: center;
+  font-size: 16px;
+  text-align: center;
+  color: #6c4ab6;
+  font-weight: 700;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 0 8px;
+}
+.card > .td {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  text-align: center;
+  border-bottom: 1px dashed #453c67;
+  border-top: 1px dashed #453c67;
+  padding-block: 8px;
+}
+.card > .td > span {
+  font-size: 13px;
+  text-align: center;
+  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: #6542af;
+  border: 1px dashed #8d72e1;
+  border-radius: 50px;
+  padding: 4px 8px;
+}
+
+/* Card Even */
+.card:nth-child(even) {
+  position: sticky;
+  top: 20px;
+  background-color: #142850;
+  height: 350px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  padding: 10px;
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.card:nth-child(even)::after {
+  content: attr(data-day);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 12vw;
+  color: #0c7b93;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  z-index: -1;
+  filter: blur(8px);
+}
+
+.card:nth-child(even) > .th {
+  position: relative;
+  align-self: center;
+  font-size: 16px;
+  text-align: center;
+  color: #142850;
+  font-weight: 700;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 0 8px;
+}
+.card:nth-child(even) > .td {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px dashed #27496d;
+  border-top: 1px dashed #27496d;
+  padding-block: 8px;
+}
+.card:nth-child(even) > .td > span {
+  font-size: 13px;
+  text-align: center;
+  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: #27496d;
+  border: 1px dashed #0c7b93;
+  border-radius: 50px;
+  padding: 4px 8px;
+}
+
+.pulse {
+  outline: 1px dashed #000;
+  outline-offset: 4px;
+  animation: pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse{
+  100%{
+    scale: 0.98;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .cards {
+    width: 45vw;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .cards {
+    width: 50vw;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .cards {
+    width: 55vw;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .cards {
+    width: 65vw;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .cards {
+    width: 90vw;
+  }
+  .card {
+    height: 380px;
+  }
+  .card::after,
+  .card:nth-child(even)::after {
+    font-size: 32vw;
+  }
+}
+
+	</style>
+</head>
+<body>
+	<header>
+  <time></time>
+  <img src="https://res.cloudinary.com/learncomputeracademy/image/upload/c_thumb,w_300,g_face/v1701951354/learncomputer.in/12_plqchp.png" alt="" />
+</header>
+<div class="cards">
+  <div class="card" data-day="MON">
+    <div class="th">10:30 - 12:30</div>
+    <div class="td">
+      <span>Ratnadeep</span>
+      <span>Suraj</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">12:30 - 02:30</div>
+    <div class="td">
+      <span>Ujjal</span>
+      <span>Bapi</span>
+      <span>Shatabdi</span>
+      <span>Priti</span>
+      <span>...</span>
+    </div>
+    <div class="th">04:00 - 06:00</div>
+    <div class="td">
+      <span>Mihir</span>
+      <span>Suman</span>
+      <span>Sathi</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">06:00 - 08:00</div>
+    <div class="td">
+      <span>Samaresh</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+  </div> <!-- .day 1 -->
+
+  <div class="card" data-day="TUE">
+    <div class="th">10:30 - 12:30</div>
+    <div class="td">
+      <span>Alok</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">12:30 - 02:30</div>
+    <div class="td">
+      <span>Bittu</span>
+      <span>Samiran</span>
+      <span>Simran</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">04:00 - 06:00</div>
+    <div class="td">
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">06:00 - 08:00</div>
+    <div class="td">
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+  </div> <!-- .day 2 -->
+
+  <div class="card" data-day="WED">
+    <div class="th">10:30 - 12:30</div>
+    <div class="td">
+      <span>Ratnadeep</span>
+      <span>Suraj</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">12:30 - 02:30</div>
+    <div class="td">
+      <span>Ujjal</span>
+      <span>Bapi</span>
+      <span>Shatabdi</span>
+      <span>Priti</span>
+      <span>...</span>
+    </div>
+    <div class="th">04:00 - 06:00</div>
+    <div class="td">
+      <span>Mihir</span>
+      <span>Suman</span>
+      <span>Sathi</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">06:00 - 08:00</div>
+    <div class="td">
+      <span>Samaresh</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+  </div> <!-- .day 3 -->
+
+  <div class="card" data-day="THU">
+    <div class="th">10:30 - 12:30</div>
+    <div class="td">
+      <span>Alok</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">12:30 - 02:30</div>
+    <div class="td">
+      <span>Bittu</span>
+      <span>Samiran</span>
+      <span>Simran</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">04:00 - 06:00</div>
+    <div class="td">
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">06:00 - 08:00</div>
+    <div class="td">
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+  </div> <!-- .day 4 -->
+
+  <div class="card" data-day="FRI">
+    <div class="th">10:30 - 12:30</div>
+    <div class="td">
+      <span>Ratnadeep</span>
+      <span>Suraj</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">12:30 - 02:30</div>
+    <div class="td">
+      <span>Ujjal</span>
+      <span>Bapi</span>
+      <span>Shatabdi</span>
+      <span>Priti</span>
+      <span>...</span>
+    </div>
+    <div class="th">04:00 - 06:00</div>
+    <div class="td">
+      <span>Mihir</span>
+      <span>Suman</span>
+      <span>Sathi</span>
+      <span>Simran</span>
+      <span>...</span>
+    </div>
+    <div class="th">06:00 - 08:00</div>
+    <div class="td">
+      <span>Samaresh</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+  </div> <!-- .day 3 -->
+
+  <div class="card" data-day="SAT">
+    <div class="th">10:30 - 12:30</div>
+    <div class="td">
+      <span>Alok</span>
+      <span>Mihir</span>
+      <span>Krishanu</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">12:30 - 02:30</div>
+    <div class="td">
+      <span>Bittu</span>
+      <span>Samiran</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">04:00 - 06:00</div>
+    <div class="td">
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="th">06:00 - 08:00</div>
+    <div class="td">
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+  </div> <!-- .day 4 -->
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script>
+	function systemTime() {
+  let currentDate = new Date();
+  let hours = currentDate.getHours();
+  let minutes = currentDate.getMinutes();
+  let seconds = currentDate.getSeconds();
+  let amOrPm = hours < 12 ? "AM" : "PM";
+
+  let formattedHours = hours % 12 || 12;
+  let formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+  let formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
+
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${amOrPm}`;
+}
+
+setInterval(() => {
+  let sysTime = systemTime();
+  $("time").text(sysTime);
+}, 1000);
+
+// Step 1: Get the current week day
+const currentDay = new Date()
+  .toLocaleString("en-us", { weekday: "short" })
+  .toUpperCase();
+
+// Step 2: Select the <div> element(s) with the data-day attribute equal to the current week day
+const dayDiv = document.querySelector(`div[data-day="${currentDay}"]`);
+
+// Step 3: Remove the hidden class from the selected <div> element(s)
+dayDiv.classList.add("pulse");
+
+</script>
+</body>
+</html>
